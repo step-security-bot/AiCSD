@@ -16,6 +16,9 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
+permissions:
+  contents: read
+
 jobs:
   analyze:
     name: Analyze
@@ -34,6 +37,11 @@ jobs:
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@v2
+      with:
+        egress-policy: audit
+
     - name: Checkout repository
       uses: actions/checkout@v3
     # Initializes the CodeQL tools for scanning.

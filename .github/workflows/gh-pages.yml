@@ -6,10 +6,20 @@ on:
       - main
     paths:
       - docs_src/**
+permissions:
+  contents: read
+
 jobs:
   deploy:
+    permissions:
+      contents: write  # for mkdocs gh-deploy to publish docs
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
